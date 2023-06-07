@@ -19,10 +19,7 @@ export async function getGWASResult(identifier: string): Promise<GraphQLGWASResu
     return this.pathQuery(query)
         .then((response: IntermineGWASResultResponse) => response2gwasResults(response))
         .then((gwasResults: Array<GraphQLGWASResult>) => {
-            if (!gwasResults.length) {
-                const msg = `GWASResult with primaryIdentifier '${identifier}' not found`;
-                this.inputError(msg);
-            }
+            if (!gwasResults.length) return null;
             return gwasResults[0];
         });
 }
